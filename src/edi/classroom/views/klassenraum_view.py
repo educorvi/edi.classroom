@@ -15,7 +15,7 @@ class KlassenraumView(BrowserView):
 
     def __call__(self):
         # Implement your own actions:
-        if not self.checkpin:
+        if not self.checkpin():
             url = self.context.absolute_url() + '/check-pin'
             return self.request.response.redirect(url)
         self.msg = _(u'A small message')

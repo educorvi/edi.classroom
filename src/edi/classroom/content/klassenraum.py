@@ -15,7 +15,7 @@ class IKlassenraum(model.Schema):
 
     pin = schema.TextLine(title=u"Zugangscode",
                           description=u"Geben Sie hier einen 6-stelligen Zugangscode ein, den die Schüler eingeben\
-                                        müssen um den virtuellen Klassenraum zu betreten."
+                                        müssen um den virtuellen Klassenraum zu betreten.")
 
     banner = NamedBlobImage(title=u"Titelbild des Klassenraums", required=False)
     text = RichText(title=u"Beschreibung des Klassenraums", required=False)                                     
