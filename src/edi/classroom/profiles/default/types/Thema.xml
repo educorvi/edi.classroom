@@ -1,38 +1,37 @@
 <?xml version="1.0"?>
 <object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    name="Klassenraum"
+    name="Thema"
     meta_type="Dexterity FTI"
     i18n:domain="edi.classroom">
 
   <!-- Basic properties -->
   <property
       i18n:translate=""
-      name="title">Klassenraum</property>
+      name="title">Thema</property>
   <property
       i18n:translate=""
-      name="description">Ordnertyp zur Abbildung eines virtuellen Klassenzimmers</property>
+      name="description">Ordnertyp zur Strukturierung des Unterrichts in dieser Klasse</property>
 
   <property name="allow_discussion">False</property>
-  <property name="factory">Klassenraum</property>
+  <property name="factory">Thema</property>
   <property name="icon_expr"></property>
   <property name="link_target"></property>
 
   <!-- Hierarchy control -->
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="Thema" />
-      <!--
+  <!--
     <element value="Document" />
     <element value="File" />
   -->
   </property>
   <!-- Schema, class and security -->
-  <property name="add_permission">edi.classroom.AddKlassenraum</property>
-  <property name="klass">edi.classroom.content.klassenraum.Klassenraum</property>
+  <property name="add_permission">edi.classroom.AddThema</property>
+  <property name="klass">edi.classroom.content.thema.Thema</property>
   <property name="model_file"></property>
   <property name="model_source"></property>
-  <property name="schema">edi.classroom.content.klassenraum.IKlassenraum</property>
+  <property name="schema">edi.classroom.content.thema.IThema</property>
 
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="false">
@@ -62,7 +61,7 @@
   </property>
 
   <!-- View information -->
-  <property name="add_view_expr">string:${folder_url}/++add++Klassenraum</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Thema</property>
   <property name="default_view">view</property>
   <property name="default_view_fallback">False</property>
   <property name="immediate_view">view</property>

@@ -7,6 +7,12 @@
   <!-- -*- extra stuff goes here -*- -->
 
     <permission
+        id="edi.classroom.AddThema"
+        title="edi.classroom: Add Thema"
+    />
+
+
+    <permission
         id="edi.classroom.AddKlassenraum"
         title="edi.classroom: Add Klassenraum"
     />
