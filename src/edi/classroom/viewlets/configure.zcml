@@ -8,13 +8,12 @@
 
   <browser:viewlet
      name="navbar-viewlet"
-     for="plone.app.contenttypes.interfaces.IDocument"
+     for="*"
      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
      layer="edi.classroom.interfaces.IEdiClassroomLayer"
      class=".navbar_viewlet.NavbarViewlet"
      template="navbar-viewlet.pt"
      permission="zope2.View"
      />
-
 
 </configure>

@@ -18,7 +18,7 @@ class IKlassenraum(model.Schema):
                           description=u"Geben Sie hier einen 6-stelligen Zugangscode ein, den die Schüler eingeben\
                                         müssen um den virtuellen Klassenraum zu betreten.")
 
-    banner = NamedBlobImage(title=u"Titelbild des Klassenraums", required=False)
+    image = NamedBlobImage(title=u"Titelbild des Klassenraums", required=False)
     text = RichText(title=u"Beschreibung des Klassenraums", required=False)                                     
 
 
@@ -42,4 +42,7 @@ class Klassenraum(Container):
         return check
 
     def get_backurl(self):
+        return self.absolute_url()
+
+    def get_homelink(self):
         return self.absolute_url()

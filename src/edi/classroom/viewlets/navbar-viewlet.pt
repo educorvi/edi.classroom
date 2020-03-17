@@ -1,3 +1,41 @@
-<div class="days_to_conf">
-    ${view/message}
+<div class="col-12 mb-3">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" tal:attributes="href view/get_homelink"><span class="menu-item-icon fal fa-home"></span> Klassenraum</a>
+      </li>
+      <li class="nav-item active" tal:condition="python:context.portal_type=='Skill'">
+        <a class="nav-link" href="#" tal:attributes="href python:context.aq_inner.aq_parent.absolute_url()"> 
+	  <span class="menu-item-icon fal fa-angle-left"></span> Zurück</a>
+      </li>
+      <li class="nav-item dropdown" tal:condition="view/get_skills">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarSkills" role="button" data-toggle="dropdown" aria-haspopup="true" 
+           aria-expanded="false">
+           Skills
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarSkills">
+          <a tal:repeat="skill view/get_skills" class="dropdown-item" tal:attributes="href skill/getURL" tal:content="skill/Title"/>
+        </div>
+      </li>
+      <li class="nav-item dropdown" tal:condition="view/get_themen">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarThemen" role="button" data-toggle="dropdown" aria-haspopup="true" 
+           aria-expanded="false">
+           Themen
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarSkills">
+          <a tal:repeat="thema view/get_themen" class="dropdown-item" tal:attributes="href thema/getURL" tal:content="thema/Title"/>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
 </div>
