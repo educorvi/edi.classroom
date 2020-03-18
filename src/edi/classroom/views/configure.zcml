@@ -7,6 +7,13 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="krks-view"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".krks_view.KrksView"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="view"
     for="edi.classroom.content.thema.IThema"
     class=".thema_view.ThemaView"
