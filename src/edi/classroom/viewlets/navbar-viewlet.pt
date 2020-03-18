@@ -1,16 +1,13 @@
 <div class="col-12 mb-3">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#" tal:attributes="href view/get_homelink"><span class="menu-item-icon fal fa-home"></span> Klassenraum</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#" tal:attributes="href view/get_homelink"><span class="menu-item-icon fal fa-home"></span> Klassenraum</a>
-      </li>
       <li class="nav-item active" tal:condition="python:context.portal_type=='Skill'">
         <a class="nav-link" href="#" tal:attributes="href python:context.aq_inner.aq_parent.absolute_url()"> 
 	  <span class="menu-item-icon fal fa-angle-left"></span> Zurück</a>
