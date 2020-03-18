@@ -27,7 +27,13 @@
             </div>
 	  </div>
 	</div>
- 
+
+        <div tal:condition="context/image" class="row mb-3">
+          <div class="col-12">
+                  <img class="img-fluid mx-auto d-block rounded" style="max-height:300px" tal:attributes="src python:context.absolute_url()+'/@@images/image';alt context/description">
+          </div>                  
+        </div>
+
         <div class="row">
           <span class="col-sm12 col-12" tal:content="structure provider:plone.abovecontenttitle" />
         </div>
