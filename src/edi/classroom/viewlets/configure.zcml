@@ -7,6 +7,16 @@
   -*- extra stuff goes here -*-
 
   <browser:viewlet
+     name="security-viewlet"
+     for="plone.app.contenttypes.interfaces.IDocument"
+     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     layer="edi.classroom.interfaces.IEdiClassroomLayer"
+     class=".security_viewlet.SecurityViewlet"
+     template="security-viewlet.pt"
+     permission="zope2.View"
+     />
+
+  <browser:viewlet
      name="navbar-viewlet"
      for="*"
      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
