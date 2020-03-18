@@ -19,4 +19,5 @@ class KlassenraumView(ErweiterteKartenansicht):
             if not self.context.checkpin(self.request):
                 url = self.context.absolute_url() + '/check-pin'
                 return self.request.response.redirect(url)
+        self.teacher = True    
         return self.index()

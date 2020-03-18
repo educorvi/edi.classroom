@@ -15,6 +15,18 @@
            b_size python:batchvalue;b_start python:0;b_start request/b_start | b_start;
            batch python:Batch(allcards, b_size, int(b_start), orphan=0);">
 
+        
+	<div tal:condition="view/teacher" class="row">
+          <div class="col-12">
+	    <div class="alert alert-info" role="alert">
+              <h4 class="alert-heading">Freigabe für Ihre Schüler</h4>
+	      <p>Freigabe-Link: <strong tal:content="python: context.absolute_url()"/></p>
+	      <p>Pin: <strong tal:content="context/pin"/></p>
+              <hr>
+              <p class="mb-0">Bitte geben Sie diese Informationen an Ihre Schüler weiter. Diesen Hinweis sehen Ihre Schüler nicht.</p>
+            </div>
+	  </div>
+	</div>
  
         <div class="row">
           <span class="col-sm12 col-12" tal:content="structure provider:plone.abovecontenttitle" />
@@ -28,7 +40,13 @@
             <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
             <span tal:content="structure provider:plone.abovecontentbody" />
             <div tal:content="structure view/myhtml"/>
-            <span tal:condition="not:allcards" tal:content="view/emptymessage"/>
+            <span tal:condition="not:batch">
+              <p class="discreet">
+                Ihr Ordner hat zur Zeit noch keinen Inhalt. Klicken Sie auf das Menü 
+		<span class="menu-item-icon fal fa-bars"></span> oben rechts um Inhalte
+                hinzuzufügen.
+              </p>
+            </span>
             <div tal:repeat="cards batch" class="card-deck mb-3">
               <div tal:repeat="item cards" class="card bg-light mb-3" style="max-width: 18rem;">
                   <a href="" class="card-link" tal:attributes="href item/url">
@@ -64,7 +82,13 @@
             <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
             <span tal:content="structure provider:plone.abovecontentbody" />
             <div tal:content="structure view/myhtml"/>
-            <span tal:condition="not:allcards" tal:content="view/emptymessage"/>
+            <span tal:condition="not:batch">
+              <p class="discreet">
+                Ihr Ordner hat zur Zeit noch keinen Inhalt. Klicken Sie auf das Menü 
+                <span class="menu-item-icon fal fa-bars"></span> oben rechts um Inhalte
+                hinzuzufügen.
+              </p>
+            </span>
             <div tal:repeat="cards batch" class="card-deck mb-3">
               <div tal:repeat="item cards" class="card bg-light mb-3" style="max-width: 21rem;">
                   <a href="" class="card-link" tal:attributes="href item/url">
