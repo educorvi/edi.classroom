@@ -8,8 +8,8 @@
 
   <browser:viewlet
      name="security-viewlet"
-     for="plone.app.contenttypes.interfaces.IDocument"
-     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     for="*"
+     manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
      layer="edi.classroom.interfaces.IEdiClassroomLayer"
      class=".security_viewlet.SecurityViewlet"
      template="security-viewlet.pt"
