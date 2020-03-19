@@ -1,44 +1,49 @@
-.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
-   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
-   This text does not appear on pypi or github. It is a comment.
-
 =============
 edi.classroom
 =============
 
-Tell me what your product does
+Dieses Add-On stellt einen virtuellen Klassenraum für das Content-Management-System Plone zur Verfügung. Für die volle Funktionsweise 
+von edi.classroom werden weitere Packages benötigt:
+
+- nva.kurzfassung (https://github.com/novareto/nva.kurzfassung.git)
+- nva.folderbehaviors (https://github.com/novareto/nva.folderbehaviors.git)
+- edi.skillpill (https://github.com/educorvi/edi.skillpill.git)
 
 Features
 --------
 
-- Can be bullet points
+- Inhaltstypen Klassenraum und Thema
+- Eigene Navigation für Schülerinnen und Schüler
+- Short-Link für das Teilen von Inhalten mit Schülerinnen und Schülern
+- Für den Zugang zum Klassenraum wird der Link und ein PIN benötigt  
 
 
 Examples
 --------
 
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
+Dieses Add-On kann ist auf folgenden Seiten installiert:
+
+- https://www.kraeks.de
 
 
 Documentation
 -------------
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+Dokumentationen des Packages stehen hier zur Verfügung:
+
+- https://www.kraeks.de/fulldok
+- https://github.com/educorvi/edi.classroom
 
 
 Translations
 ------------
 
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
-
+Das Add-On steht momentan nur in Deutscher Sprache zur Verfügung.
 
 Installation
 ------------
 
-Install edi.classroom by adding it to your buildout::
+Die Installation von edi.classroom durch Hinzufügen des folgenden Add-Ons zur buildout.cfg::
 
     [buildout]
 
@@ -48,25 +53,24 @@ Install edi.classroom by adding it to your buildout::
         edi.classroom
 
 
-and then running ``bin/buildout``
+dann bitte ausführen: ``bin/buildout``
 
 
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/collective/edi.classroom/issues
-- Source Code: https://github.com/collective/edi.classroom
-- Documentation: https://docs.plone.org/foo/bar
+- Problemmeldungen: https://github.com/collective/edi.classroom/issues
+- Quellcode: https://github.com/collective/edi.classroom
+- Documentation: https://www.kraeks.de/fulldok
 
 
 Support
 -------
 
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+Sie haben ein Problem mit edi.classroom? Bitte lassen Sie es uns wissen: info@educorvi.de
 
 
 License
 -------
 
-The project is licensed under the GPLv2.
+Das Add-on ist lizensiert unter GPLv2.
