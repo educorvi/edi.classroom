@@ -18,9 +18,15 @@
         
 	<div tal:condition="view/teacher" class="row">
           <div class="col-12">
-	    <div class="alert alert-info" role="alert">
+
+            <p>
+              <a data-toggle="collapse" href="#collapseShare" role="button" aria-expanded="false" aria-controls="collapseShare">
+                <span class="fas fa-share"></span> Mit den Schülern teilen
+              </a>
+            </p>
+	    <div class="alert alert-info collapse" id="collapseShare" role="alert">
               <h4 class="alert-heading">Freigabe für Ihre Schüler</h4>
-	      <p>Freigabe-Link: <strong tal:content="python: context.absolute_url()"/></p>
+	      <p>Freigabe-Link: <strong tal:content="view/get_link_url"/></p>
 	      <p>Pin: <strong tal:content="context/pin"/></p>
               <hr>
               <p class="mb-0">Bitte geben Sie diese Informationen an Ihre Schüler weiter. Diesen Hinweis sehen Ihre Schüler nicht.</p>
@@ -28,9 +34,9 @@
 	  </div>
 	</div>
 
-        <div tal:condition="context/image" class="row mb-3">
+        <div tal:condition="context/classimage" class="row mb-3">
           <div class="col-12">
-                  <img class="img-fluid mx-auto d-block rounded" style="max-height:300px" tal:attributes="src python:context.absolute_url()+'/@@images/image';alt context/description">
+                  <img class="img-fluid mx-auto d-block rounded" style="max-height:400px" tal:attributes="src python:context.absolute_url()+'/@@images/classimage';alt context/description">
           </div>                  
         </div>
 

@@ -13,7 +13,7 @@ class IThema(model.Schema):
     """ Marker interface and Dexterity Python Schema for Thema
     """
 
-    image = NamedBlobImage(title=u"Titelbild des Themas", required=False)
+    themaimage = NamedBlobImage(title=u"Titelbild des Themas", required=False)
     text = RichText(title=u"Beschreibung des Themas", required=False)
 
 
