@@ -36,7 +36,7 @@ class CheckPinForm(AutoExtensibleForm, form.Form):
                 uid = self.context.UID()
                 session[uid] = data.get('checkpin')
                 session.save()
-                url = self.context.absolute_url() + '/klassenraum-view'
+                url = self.context.absolute_url()
                 return self.request.response.redirect(url)
 
 
