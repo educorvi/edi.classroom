@@ -13,4 +13,18 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="sendorder"
+    for="*"
+    class=".ordermedia.SendOrder"
+    permission="zope2.View"
+    />
+
+   <browser:page
+       for="*"
+       name="order"
+       class=".ordermedia.order_form_frame"
+       permission="zope2.View"
+       />
+
 </configure>

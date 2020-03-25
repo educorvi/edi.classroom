@@ -7,12 +7,12 @@
   -*- extra stuff goes here -*-
 
   <browser:viewlet
-     name="user-viewlet"
-     for="plone.app.contenttypes.interfaces.IDocument"
-     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     name="order-viewlet"
+     for="*"
+     manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
      layer="edi.classroom.interfaces.IEdiClassroomLayer"
-     class=".user_viewlet.UserViewlet"
-     template="user-viewlet.pt"
+     class=".order_viewlet.OrderViewlet"
+     template="order-viewlet.pt"
      permission="zope2.View"
      />
 

@@ -1,0 +1,13 @@
+<div class="col-12 mb-3">
+<div class="card">
+  <div class="card-body">
+	  <a tal:condition="not:view/is_anon" href="" tal:attributes="href string:${context/absolute_url}/order" 
+             role="button" class="btn btn-success">Jetzt bestellen</a>
+	  <a tal:condition="view/is_anon" href="" tal:attributes="href string:${view/portal_url}/register" 
+             role="button" class="btn btn-warning">Registrieren</a>
+	  <a tal:condition="view/is_anon" href="" tal:attributes="href string:${view/portal_url}/login" 
+             role="button" class="btn btn-secondary">Anmelden</a>
+  </div>
+</div>
+</div>
+
