@@ -6,17 +6,29 @@ from plone.namedfile.field import NamedBlobImage
 from zope import schema
 from zope.interface import implementer
 from collective.beaker.interfaces import ISession
-
+from zope.interface import Invalid
 
 from edi.classroom import _
+
+
+def pin_constraint(value):
+    """Prueft die PIN-Laenge auf 6 Zeichen
+    """
+    if not len(value) == 6:
+        raise Invalid(u"Die PIN muss 6 Zeichen lang sein.")
+    if u' ' in value:
+        raise Invalid(u"Die PIN darf keine Leerzeichen enthalten.") 
+    return True
+
 
 class IKlassenraum(model.Schema):
     """ Marker interface and Dexterity Python Schema for Klassenraum
     """
 
-    pin = schema.TextLine(title=u"Zugangscode",
-                          description=u"Geben Sie hier einen 6-stelligen Zugangscode ein, den die Schüler eingeben\
-                                        müssen um den virtuellen Klassenraum zu betreten.")
+    pin = schema.TextLine(title=u"Zugang zum virtuellen Klassenraum",
+                          constraint=pin_constraint,
+                          description=u"Tragen Sie hier einen 6-stelligen alphanumerischen Zugangscode (PIN) ein, den die Schüler\
+                                        eingeben müssen um den virtuellen Klassenraum zu betreten.")
 
     classimage = NamedBlobImage(title=u"Titelbild des Klassenraums", required=False)
     text = RichText(title=u"Beschreibung des Klassenraums", required=False)                                     

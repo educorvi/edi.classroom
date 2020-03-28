@@ -7,8 +7,11 @@ from plone.autoform.form import AutoExtensibleForm
 from collective.beaker.interfaces import ISession
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile as FiveViewPageTemplateFile
 from plone import api as ploneapi
-from edi.classroom.forms.mailconfig import create_edibody, create_userbody
+from edi.classroom.forms.mailconfig import create_edibody
+from edi.classroom.forms.receipt import create_userbody
 import z3c.form
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import plone.app.z3cform
 import plone.z3cform.templates
@@ -61,7 +64,6 @@ class SendOrder(AutoExtensibleForm, form.Form):
         data['name'] = user.getProperty('fullname')
 
         edi_body = create_edibody(data)
-        user_body = create_userbody(data)
 
         ploneapi.portal.send_email(
             recipient=u"info@educorvi.de",
@@ -70,34 +72,37 @@ class SendOrder(AutoExtensibleForm, form.Form):
             body=edi_body,
             )
 
-        ploneapi.portal.send_email(
-            recipient=data.get('email'),
-            sender="educorvi@web.de",
-            subject="Ihre Bestellung eines Handy-Stativs auf kraeks.de",
-            body=user_body,
-            )
+        mime_msg = MIMEMultipart('related')
+        mime_msg['Subject'] = u"Ihre Bestellung eines Handy-Stativs auf kraeks.de"
+        mime_msg['From'] = u"educorvi@web.de"
+        mime_msg['To'] = data.get('email')
+        mime_msg.preamble = 'This is a multi-part message in MIME format.'
+        msgAlternative = MIMEMultipart('alternative')
+        mime_msg.attach(msgAlternative)
+
+        htmltext = create_userbody(data)
+        msg_txt = MIMEText(htmltext, _subtype='html', _charset='utf-8')
+        msgAlternative.attach(msg_txt)
+        mail_host = ploneapi.portal.get_tool(name='MailHost')
+        mail_host.send(mime_msg.as_string())
 
         self.output = dict(country="foobar")
         self.status = _(u"Report complete")
 
-            #if data.get('checkpin') != self.context.pin:
-            #    errormsg = u"Der eingegebene PIN ist leider nicht gültig"
-            #    ploneapi.portal.show_message(message=errormsg, request=self.request, type='error')
-            #    url = self.context.absolute_url() + '/check-pin'
-            #    return self.request.response.redirect(url)
-            #else:
-            #    session = ISession(self.request)
-            #    uid = self.context.UID()
-            #    session[uid] = data.get('checkpin')
-            #    session.save()
-            #    url = self.context.absolute_url()
-            #    return self.request.response.redirect(url)
+        thankmessage = u"Vielen Dank für Ihre Bestellung. Diese ist bei uns eingegangen. Sie erhalten in wenigen Minuten eine\
+                         Bestellbestätigung per E-Mail."
+
+        message = ploneapi.portal.show_message(message=thankmessage, request=self.request, type='info')
+        url = self.context.absolute_url()
+        return self.request.response.redirect(url)
 
 
-    #@button.buttonAndHandler(u'Abbrechen')
-    #def handleCancel(self, action):
-    #    data, errors = self.extractData()
-    #    import pdb;pdb.set_trace()
-    #    # do something
+    @button.buttonAndHandler(u'Abbrechen')
+    def handleCancel(self, action):
+        data, errors = self.extractData()
+        url = self.context.absolute_url()
+        return self.request.response.redirect(url)
+        
+        # do something
 
 order_form_frame = plone.z3cform.layout.wrap_form(SendOrder, index=FiveViewPageTemplateFile("order.pt"))    

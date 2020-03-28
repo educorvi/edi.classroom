@@ -8,9 +8,9 @@
         
 	<h2 tal:content="view/label | nothing" />
 
-        <p>Das kraeks.de Handystativ wird exklusiv für Sie gedruckt, montiert und frei Haus versendet. Der Betrag
-	   von 9,00 Euro (inkl.Mwst.) stellt einen Selbstkostenpreis dar, der unserem tatsächlichen Aufwand
-	   entspricht. Nach dem Absenden erhalten Sie eine Auftragsbestätigung per E-Mail.
+        <p>Das kraeks.de Handystativ wird exklusiv für Sie gedruckt, montiert und versandkostenfrei geliefert. 
+	   Der Betrag von 9,00 Euro (inkl.Mwst.) stellt einen Selbstkostenpreis dar, der unserem tatsächlichen Aufwand
+	   entspricht. Nach dem Absenden erhalten Sie eine Bestellbestätigung und eine Rechnung per E-Mail.
 	   Wir bitten Sie, uns den Betrag <strong>nach Erhalt des Stativs</strong> innerhalb von 14 Tagen zu
 	   überweisen. Die dafür notwendigen Informationen entnehmen Sie bitte der E-Mail.</p>
 	<p>Sollte trotz all unserer Bemühungen ein Stativ defekt bei Ihnen ankommen oder innerhalb von 14 Tagen
