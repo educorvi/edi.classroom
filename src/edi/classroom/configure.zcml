@@ -42,6 +42,9 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <adapter factory=".content.klassenraum.nameIndexer" name="teachername" />
+  <adapter factory=".content.klassenraum.mailIndexer" name="teachermail" />
+
   <include package=".viewlets" />
 
   <include package=".views" />

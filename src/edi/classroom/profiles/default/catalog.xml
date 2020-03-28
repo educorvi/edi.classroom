@@ -1,4 +1,12 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
-  <!--<column value="my_meta_column"/>-->
+    <index name="Teachername" meta_type="FieldIndex">
+        <indexed_attr value="teachername"/>
+    </index>
+    <index name="Teachermail" meta_type="FieldIndex">
+        <indexed_attr value="teachermail"/>
+    </index>
+    <column value="teachername"/>
+    <column value="teachermail"/>
 </object>
+

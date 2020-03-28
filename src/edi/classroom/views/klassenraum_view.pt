@@ -47,6 +47,15 @@
         <div class="row">
 
           <div tal:condition="view/mastercards" class="col-sm-8 col-12">
+            <blockquote class="blockquote text-center">
+              <p>
+	        <span class="edi_classroom_teachername" tal:content="python: view.get_teacherindex().get('teachername')"/><br>
+                <a class="edi_classroom_teachermail" tal:attributes="href python:'mailto:'+view.get_teacherindex().get('teachermail')"
+                  tal:content="python: view.get_teacherindex().get('teachermail')">
+	      </p>
+            </blockquote>
+            <p tal:content="view/get_teacherindex/teachername"/>
+	    <p tal:content="view/get_teacherindex/teachermail"/>
             <h1 tal:content="view/mytitle"/>
             <span tal:content="structure provider:plone.belowcontenttitle" />
             <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
@@ -89,6 +98,13 @@
           </div>
 
           <div tal:condition="not:view/mastercards" class="col-sm-12 col-12">
+            <blockquote class="blockquote text-center">		  
+              <p>
+	        <span class="edi_classroom_teachername" tal:content="python: view.get_teacherindex().get('teachername')"/><br>
+	        <a class="edi_classroom_teachermail" tal:attributes="href python:'mailto:'+view.get_teacherindex().get('teachermail')" 
+	          tal:content="python: view.get_teacherindex().get('teachermail')">
+	      </p>
+	    </blockquote>
             <h1 tal:content="view/mytitle"/>
             <span tal:content="structure provider:plone.belowcontenttitle" />
             <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>

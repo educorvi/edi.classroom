@@ -24,6 +24,10 @@ class KlassenraumView(ErweiterteKartenansicht):
             self.teacher = True    
         return self.index()
 
+    def get_teacherindex(self):
+        catalogbrain = ploneapi.content.find(portal_type='Klassenraum', UID=self.context.UID())[0]
+        return {'teachername':catalogbrain.teachername, 'teachermail':catalogbrain.teachermail}
+
     def get_link_url(self):
         portalurl = ploneapi.portal.get().absolute_url()
         returl = "%s/@@krks?wc=%s" %(portalurl, self.context.webcode)

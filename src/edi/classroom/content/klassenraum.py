@@ -7,6 +7,8 @@ from zope import schema
 from zope.interface import implementer
 from collective.beaker.interfaces import ISession
 from zope.interface import Invalid
+from plone.indexer import indexer
+from plone import api as ploneapi
 
 from edi.classroom import _
 
@@ -58,3 +60,22 @@ class Klassenraum(Container):
 
     def get_homelink(self):
         return self.absolute_url()
+
+
+@indexer(IKlassenraum)
+def nameIndexer(obj):
+    current = ploneapi.user.get_current()
+    userroles = ploneapi.user.get_roles(user=current)
+    if 'Manager' in userroles or 'Site Administrator' in userroles:
+        creator = ploneapi.user.get(username=obj.Creator())
+        return creator.getProperty('fullname')
+    return current.getProperty('fullname')
+
+@indexer(IKlassenraum)
+def mailIndexer(obj):
+    current = ploneapi.user.get_current()
+    userroles = ploneapi.user.get_roles(user=current)
+    if 'Manager' in userroles or 'Site Administrator' in userroles:
+        creator = ploneapi.user.get(username=obj.Creator())
+        return creator.getProperty('email')
+    return current.getProperty('email')
