@@ -59,9 +59,22 @@
           </div>
 
           <div tal:condition="not:view/mastercards" class="col-sm-12 col-12">
-            <h1 tal:content="view/mytitle"/>
-            <span tal:content="structure provider:plone.belowcontenttitle" />
-            <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
+            <div tal:condition="not:context/image">		  
+              <h1 tal:content="view/mytitle"/>
+              <span tal:content="structure provider:plone.belowcontenttitle" />
+              <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
+            </div>
+	    <div tal:condition="context/image" class="row mb-3">
+	      <div class="col-12 col-md-8">
+                <h1 tal:content="view/mytitle"/> 
+                <span tal:content="structure provider:plone.belowcontenttitle" />
+                <div id="parent-fieldname-description" class="documentDescription" tal:content="view/mydesc"/>
+              </div>
+
+	      <div class="col-12 col-md-4">
+               <img class="img-fluid rounded shadow" tal:attributes="src string:${context/absolute_url}/@@images/image">
+              </div> 
+            </div>
             <span tal:content="structure provider:plone.abovecontentbody" />
             <div tal:content="structure view/myhtml"/>
             <span tal:condition="not:allcards" tal:content="view/emptymessage"/>

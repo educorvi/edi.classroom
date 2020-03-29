@@ -42,6 +42,12 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <subscriber
+     for=".content.klassenraum.IKlassenraum
+       zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    handler=".events.PublishClassroom"
+  />
+
   <adapter factory=".content.klassenraum.nameIndexer" name="teachername" />
   <adapter factory=".content.klassenraum.mailIndexer" name="teachermail" />
 
