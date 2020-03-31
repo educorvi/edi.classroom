@@ -29,5 +29,11 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    name="classroomchat"
+    for="edi.classroom.content.klassenraum.IKlassenraum"
+    class=".klassenraum_chat.ChatData"
+    permission="zope2.View"
+    />
 
 </configure>

@@ -55,6 +55,7 @@ setup(
         'plone.restapi',
         'plone.app.dexterity',
         'collective.beaker',
+        'jsonlib-python3',
     ],
     extras_require={
         'test': [
