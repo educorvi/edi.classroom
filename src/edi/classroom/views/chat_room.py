@@ -2,6 +2,7 @@
 
 from edi.classroom import _
 from Products.Five.browser import BrowserView
+from plone import api as ploneapi
 
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -13,5 +14,7 @@ class ChatRoom(BrowserView):
 
     def __call__(self):
         # Implement your own actions:
-        self.msg = _(u'A small message')
+
+        portal = ploneapi.portal.get().absolute_url()
+        self.statics= portal + '/++resource++edi.classroom'
         return self.index()

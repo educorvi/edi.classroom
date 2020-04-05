@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import requests
 from edi.classroom import _
 from Products.Five.browser import BrowserView
 from plone import api as ploneapi
@@ -11,23 +12,24 @@ class ChatData(BrowserView):
         myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
         response = requests.get('https://couch.kraeks.de/_all_dbs', headers=myheaders, auth=myauth)
         databases = response.json()
-        compare = "listen_user_%s" %self.context.UID()
+        compare = "classroomchat_%s" %self.context.UID()
         if compare in databases:
             return True
         return False
 
     def create_database(self):
+        token = self.context.UID()
         myheaders ={'Accept': 'application/json', 'Content-Type': 'application/json'}
         myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
 
-        database_url = 'https://couch.kraeks.de/listen_user_%s' %self.context.UID()
+        database_url = 'https://couch.kraeks.de/classroomchat_%s' %token
         new_database = requests.put(database_url, headers=myheaders, auth=myauth)
 
-        newuser_url = 'https://couch.kraeks.de/_users/org.couchdb.user:%s' %self.context.UID()
+        newuser_url = 'https://couch.kraeks.de/_users/org.couchdb.user:%s' %token
         data = {"name": token, "password": token, "roles": [], "type": "user"}
         newuser = requests.put(newuser_url, headers=myheaders, auth=myauth, json=data)
 
-        security_url = 'https://couch.kraeks.de/listen_user_%s/_security' %self.context.UID()
+        security_url = 'https://couch.kraeks.de/classroomchat_%s/_security' %token
         data = {"admins":{"names":[], "roles":[]}, "members":{"names":[token], "roles":[]}}
         security = requests.put(security_url, headers=myheaders, auth=myauth, json=data)
 
@@ -49,7 +51,7 @@ class ChatData(BrowserView):
                 payload = jsonlib.write(data)
                 return payload
         if matches:
-            data['user'] = {'name':authuser.getProperty('fullname'), 'pin':'', 'role':'teacher'}
+            data['user'] = {'name':authuser.getProperty('fullname'), 'pin':authuser.getProperty('email'), 'role':'teacher'}
         else:
             data['user'] = {'name':'julian', 'pin':'0815', 'role':'trainee'}
         database = True
@@ -60,7 +62,9 @@ class ChatData(BrowserView):
         data['classroom_uid'] = self.context.UID()
         data['dbuser'] = 'admin'
         data['dbpassword'] = '!krks.d3print/edi_sicherinvestieren!'
-        data['classlist'] = [{'name':'john', 'pin':'1234'}, {'name':'julian', 'pin':'0815'}, {'name':'lars', 'pin':'4711'}]
+        myclasslist = [{'name':'Lehrer Lämpel', 'pin':'walther.educorvi@gmail.com'}, 
+                       {'name':'john', 'pin':'1234'}, {'name':'julian', 'pin':'0815'}, {'name':'lars', 'pin':'4711'}]
+        data['classlist'] = myclasslist
         print(data)
         payload = jsonlib.write(data)
         return payload

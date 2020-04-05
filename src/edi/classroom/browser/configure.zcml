@@ -12,10 +12,14 @@
       />
 
   <!-- Publish static files -->
-  <plone:static
+  <!--<plone:static
       name="edi.classroom"
       type="plone"
       directory="static"
-      />
+      />-->
+
+  <browser:resourceDirectory
+      name="edi.classroom"
+      directory="static" />
 
 </configure>

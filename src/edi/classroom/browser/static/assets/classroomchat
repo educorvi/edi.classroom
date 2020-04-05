@@ -1,0 +1,25 @@
+{
+  "user": {
+    "name": "julian",
+    "pin": "0815",
+    "role": "trainee"
+  },
+  "teacher_folder_uid": "34ac7cfa32d345d8aa7bc130b9acc4a8",
+  "classroom_uid": "547a3ea1533a45b69221fc0d9e156b18",
+
+
+  "classlist": [
+    {
+      "name": "john",
+      "pin": "1234"
+    },
+    {
+      "name": "julian",
+      "pin": "0815"
+    },
+    {
+      "name": "lars",
+      "pin": "4711"
+    }
+  ]
+}
