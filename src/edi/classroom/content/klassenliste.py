@@ -23,7 +23,7 @@ class ITrainee(model.Schema):
     name = schema.TextLine(title=u"Schülername",
                               required=True)
 
-    chatpin = schema.TextLine(title=u"Schüler-PIN",
+    pin = schema.TextLine(title=u"Schüler-PIN",
                               constraint = chatpin_constraint,
                               required=True)
 

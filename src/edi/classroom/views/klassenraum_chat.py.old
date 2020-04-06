@@ -39,25 +39,32 @@ class ChatData(BrowserView):
 
     def __call__(self):
         data = {}
+        matches = []
         if not  ploneapi.user.is_anonymous():
             authuser = ploneapi.user.get_current()
+            userroles = ploneapi.user.get_roles(user=authuser, obj=self.context, inherit=True)
+            editorroles = ['Owner', 'Manager', 'Editor']
+            matches = [x for x in editorroles if x in userroles]
+        if not matches:    
+            if not self.context.checkpin(self.request):
+                data = {'error':'no valid pin for entering classroom'}
+                payload = jsonlib.write(data)
+                return payload
+        if matches:
             data['user'] = {'name':authuser.getProperty('fullname'), 'pin':authuser.getProperty('email'), 'role':'teacher'}
         else:
-            session = ISession(self.request)
-            chatid = 'chat_%s' % self.context.UID()
-            userdata = session.get(chatid)
-            userdata['role'] = 'trainee'
-            data['user'] = userdata
+            data['user'] = {'name':'julian', 'pin':'0815', 'role':'trainee'}
         database = True
         if not self.get_databases():
             database = self.create_database()
         data['database'] = database
         data['teacher_folder_uid'] = self.context.aq_parent.UID()
         data['classroom_uid'] = self.context.UID()
-        data['dbuser'] = 'admin' #Panel
-        data['dbpassword'] = '!krks.d3print/edi_sicherinvestieren!' #Panel
-        classlist = self.context.get_classlist()
-        data['classlist'] = classlist
+        data['dbuser'] = 'admin'
+        data['dbpassword'] = '!krks.d3print/edi_sicherinvestieren!'
+        myclasslist = [{'name':'Lehrer Lämpel', 'pin':'walther.educorvi@gmail.com'}, 
+                       {'name':'john', 'pin':'1234'}, {'name':'julian', 'pin':'0815'}, {'name':'lars', 'pin':'4711'}]
+        data['classlist'] = myclasslist
         print(data)
         payload = jsonlib.write(data)
         return payload

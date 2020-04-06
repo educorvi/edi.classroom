@@ -9,32 +9,39 @@ from plone import api as ploneapi
 
 from edi.classroom import _
 
-class ICheckPin(model.Schema):
+class IChatPin(model.Schema):
 
-    checkpin = schema.TextLine(title=u"Gib einen Pin ein, um den virtuellen Klassenraum zu betreten.",
+    chatpin = schema.TextLine(title=u"Gib Deinen persönlichen Pin ein, um im Chatroom zu sagen wer Du bist.",
                                required=True)
 
-class CheckPinForm(AutoExtensibleForm, form.Form):
+class ChatPinForm(AutoExtensibleForm, form.Form):
 
-    label = u"Eintritt in den virtuellen Klassenraum"
+    label = u"Anmeldung im Chatroom"
     description = u""
     ignoreContext = True
  
-    schema = ICheckPin
+    schema = IChatPin
 
-    @button.buttonAndHandler(u'Eintreten')
+    @button.buttonAndHandler(u'Anmelden')
     def handleApply(self, action):
         data, errors = self.extractData()
         if not errors:
-            if data.get('checkpin') != self.context.pin:
+            checkmember = self.context.chatmember(data.get('chatpin'))
+            if not checkmember:
                 errormsg = u"Der eingegebene PIN ist leider nicht gültig"
                 ploneapi.portal.show_message(message=errormsg, request=self.request, type='error')
-                url = self.context.absolute_url() + '/check-pin'
+                url = self.context.absolute_url() + '/chat-pin'
                 return self.request.response.redirect(url)
             else:
                 session = ISession(self.request)
                 uid = self.context.UID()
-                session[uid] = data.get('checkpin')
+                chatid = "chat_%s" %uid
+                session[chatid] = checkmember
                 session.save()
-                url = self.context.absolute_url()
+                url = self.context.absolute_url() + '/chatroom/'
                 return self.request.response.redirect(url)
+
+    @button.buttonAndHandler(u'Abbrechen')
+    def handleCancel(self, action):
+        url = self.context.absolute_url()
+        return self.request.response.redirect(url)

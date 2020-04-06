@@ -86,6 +86,31 @@ class Klassenraum(Container):
             check = self.compare_pin(checkpin)
         return check
 
+    def chatmember(self, checkpin):
+        chatmember = {}
+        if self.classlist:
+            classlist = ploneapi.content.get(UID=self.classlist).traineelist
+            for i in classlist:
+                if checkpin == i.get('pin'):
+                    return chatmember
+        return chatmember 
+
+    def checkchat(self, request):
+        check = False
+        uid = self.UID()
+        chatid = 'chat_%s' %uid
+        session = ISession(request)
+        if chatid in session:
+            checkpin = session[checkid]
+            chatmember = self.chatmember(checkpin)
+            if chatmember:
+                check = True
+        return check
+
+    def get_classlist(self):
+        classlist = ploneapi.content.get(UID=self.classlist).traineelist
+        return classlist
+
     def get_backurl(self):
         return self.absolute_url()
 
