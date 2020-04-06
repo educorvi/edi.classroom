@@ -9,8 +9,23 @@ from collective.beaker.interfaces import ISession
 from zope.interface import Invalid
 from plone.indexer import indexer
 from plone import api as ploneapi
+from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.interface import provider, Invalid
+from zope.interface import invariant
 
 from edi.classroom import _
+
+@provider(IContextSourceBinder)
+def possibleClasslists(context):
+    pm = ploneapi.portal.get_tool(name='portal_membership')
+    homefolder = pm.getHomeFolder()
+    classlists = ploneapi.content.find(context=homefolder, portal_type="Klassenliste")
+    terms = []
+    if classlists:
+        for i in classlists:
+            terms.append(SimpleVocabulary.createTerm(i.UID, i.id, i.Title))
+    return SimpleVocabulary(terms)
 
 
 def pin_constraint(value):
@@ -34,6 +49,22 @@ class IKlassenraum(model.Schema):
 
     classimage = NamedBlobImage(title=u"Titelbild des Klassenraums", required=False)
     text = RichText(title=u"Beschreibung des Klassenraums", required=False)                                     
+
+    classlist = schema.Choice(title=u"Klassenliste für diesen Klassenraum",
+                         description=u'Sie können für diesen Klassenraum eine Klassenliste auswählen wenn Sie diese vorher in "Mein Ordner"\
+                                 angelegt haben. Sie benötigen eine Klassenliste, wenn Sie für Ihren Klassenraum einen sicheren Chatroom\
+                                 einrichten wollen.',
+                         source=possibleClasslists,
+                         required=False)
+
+    chatroom = schema.Bool(title="Chatroom aktivieren",
+                           description="Die Aktivierung des Chatrooms setzt die Auswahl einer Klassenliste voraus.",
+                           required=False)
+
+    @invariant
+    def chat_invariant(data):
+        if data.chatroom and not data.classlist:
+            raise Invalid(u'Für die Aktivierung eines Chatrooms für diesen Klassenraum muss eine Klassenliste ausgewählt werden.')
 
 
 @implementer(IKlassenraum)
