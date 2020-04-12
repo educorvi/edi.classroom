@@ -16,7 +16,7 @@
 
   <browser:page
     name="chatroom"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="edi.classroom.content.klassenraum.IKlassenraum"
     class=".chat_room.ChatRoom"
     template="chat_room.pt"
     permission="zope2.View"

@@ -31,7 +31,7 @@
         </div>
       </li>
     </ul>
-    <a tal:condition="context/chatroom" tal:attributes="href python:view.get_homelink()+'/chatroom/'" role="button" 
+    <a tal:condition="context/chatroom" tal:attributes="href python:view.get_homelink()+'/@@chatroom/'" role="button" 
        class="btn btn-info my-2 my-sm-0"><i class="far fa-comments"></i> Chatroom</a>
   </div>
 </nav>
