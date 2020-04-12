@@ -94,12 +94,20 @@ class Klassenraum(Container):
         return check
 
     def chatmember(self, checkpin):
+        """
+        Die Methode wird sowohl aus der check-pin Form als auch aus dem View aufgerufen.
+        Im View übergeben wir ein ganzes Dictionary zur Prüfung, aus der Form nur den Pin.
+        Der Rückgabewert ist das Dictionary des Klassenmitglieds
+        """
         chatmember = {}
         if self.classlist:
             classlist = ploneapi.content.get(UID=self.classlist).traineelist
-            for i in classlist:
-                if checkpin == i.get('pin'):
-                    return chatmember
+            if checkpin in classlist: #aus dem View
+                return checkpin
+            else:                     #aus der Form
+                for i in classlist:
+                    if checkpin == i.get('pin'):
+                        return i
         return chatmember 
 
     def checkchat(self, request):
@@ -108,14 +116,19 @@ class Klassenraum(Container):
         chatid = 'chat_%s' %uid
         session = ISession(request)
         if chatid in session:
-            checkpin = session[checkid]
-            chatmember = self.chatmember(checkpin)
+            checkmember = session[chatid]
+            chatmember = self.chatmember(checkmember)
             if chatmember:
                 check = True
         return check
 
     def get_classlist(self):
         classlist = ploneapi.content.get(UID=self.classlist).traineelist
+        teacher = self.getOwner()
+        teachername = teacher.getProperty('fullname')
+        teachermail = teacher.getProperty('email')
+        teacherdata = {'name':teachername, 'pin':teachermail}
+        classlist.append(teacherdata)
         return classlist
 
     def get_backurl(self):

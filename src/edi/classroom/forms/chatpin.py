@@ -38,7 +38,7 @@ class ChatPinForm(AutoExtensibleForm, form.Form):
                 chatid = "chat_%s" %uid
                 session[chatid] = checkmember
                 session.save()
-                url = self.context.absolute_url() + '/chatroom/'
+                url = self.context.absolute_url() + '/@@chatroom/'
                 return self.request.response.redirect(url)
 
     @button.buttonAndHandler(u'Abbrechen')

@@ -4,6 +4,7 @@ from edi.classroom import _
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from collective.beaker.interfaces import ISession
 from plone import api as ploneapi
 import jsonlib
 
