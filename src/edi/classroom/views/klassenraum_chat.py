@@ -8,7 +8,6 @@ from plone import api as ploneapi
 import jsonlib
 
 
-
 class ChatData(BrowserView):
 
     def get_credentials(self):
@@ -19,7 +18,6 @@ class ChatData(BrowserView):
 
     def get_databases(self):
         myheaders ={'Accept': 'application/json'}
-        #myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
         myauth = self.get_credentials()
         response = requests.get('https://couch.kraeks.de/_all_dbs', headers=myheaders, auth=myauth)
         databases = response.json()
@@ -31,7 +29,6 @@ class ChatData(BrowserView):
     def create_database(self):
         token = self.context.UID()
         myheaders ={'Accept': 'application/json', 'Content-Type': 'application/json'}
-        #myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
         myauth = self.get_credentials()
 
         database_url = 'https://couch.kraeks.de/classroomchat_%s' %token
@@ -71,6 +68,5 @@ class ChatData(BrowserView):
         data['dbpassword'] = myauth[1]
         classlist = self.context.get_classlist()
         data['classlist'] = classlist
-        print(data)
         payload = jsonlib.write(data)
         return payload
