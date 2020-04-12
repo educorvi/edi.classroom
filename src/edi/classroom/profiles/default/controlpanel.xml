@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<object
+    name="portal_controlpanel"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="edi.classrooom">
+
+    <configlet
+        title="Einstellungen edi.classroom"
+        action_id="edi.classroom.settings"
+        appId="edi.classroom"
+        category="Products"
+        condition_expr=""
+        url_expr="string:${portal_url}/@@classroom-settings"
+        icon_expr=""
+        visible="True"
+        i18n:attributes="title">
+            <permission>Manage portal</permission>
+    </configlet>
+
+</object>

@@ -27,17 +27,29 @@
             </div>
           </div>
 
+          <div class="row mb-3">
+            <div class="col-12">
+              <div class="card text-white bg-warning">
+                <div class="card-header">Regeln im Chatroom</div>
+                <div class="card-body">
+                  <p class="card-text" tal:content="context/chatpolicy"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+ 
+
           <div class="row">
             <div class="col-12 col-md-12">
               <h1 tal:content="context/title"/>
+	      <p class="documentDescription" tal:condition="context/description" tal:content="context/description"/>	      
             </div>
           </div>
 
-	  <div lass="row">
-		  <div class="col-3"></div>
-
-          <div class="col-6" id="app"></div>
-	          <div class="col-3"></div>
+	  <div class="row mb-n5">
+	    <div class="col-12">	  
+              <div id="app"></div>
+	    </div>  
 	  </div>
 
           <script tal:attributes="src string:${statics}/assets/js/chunk-vendors.js"></script>

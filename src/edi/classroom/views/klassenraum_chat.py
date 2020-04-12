@@ -2,14 +2,25 @@
 import requests
 from edi.classroom import _
 from Products.Five.browser import BrowserView
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 from plone import api as ploneapi
 import jsonlib
 
+
+
 class ChatData(BrowserView):
+
+    def get_credentials(self):
+        registry = getUtility(IRegistry)
+        adminuser = registry['edi.classroom.browser.settings.ISettings.adminuser']
+        adminpassword = registry['edi.classroom.browser.settings.ISettings.adminpassword']
+        return (adminuser, adminpassword)
 
     def get_databases(self):
         myheaders ={'Accept': 'application/json'}
-        myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
+        #myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
+        myauth = self.get_credentials()
         response = requests.get('https://couch.kraeks.de/_all_dbs', headers=myheaders, auth=myauth)
         databases = response.json()
         compare = "classroomchat_%s" %self.context.UID()
@@ -20,7 +31,8 @@ class ChatData(BrowserView):
     def create_database(self):
         token = self.context.UID()
         myheaders ={'Accept': 'application/json', 'Content-Type': 'application/json'}
-        myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
+        #myauth = ('admin', '!krks.d3print/edi_sicherinvestieren!')
+        myauth = self.get_credentials()
 
         database_url = 'https://couch.kraeks.de/classroomchat_%s' %token
         new_database = requests.put(database_url, headers=myheaders, auth=myauth)
@@ -54,8 +66,9 @@ class ChatData(BrowserView):
         data['database'] = database
         data['teacher_folder_uid'] = self.context.aq_parent.UID()
         data['classroom_uid'] = self.context.UID()
-        data['dbuser'] = 'admin' #Panel
-        data['dbpassword'] = '!krks.d3print/edi_sicherinvestieren!' #Panel
+        myauth = self.get_credentials()
+        data['dbuser'] = myauth[0]
+        data['dbpassword'] = myauth[1]
         classlist = self.context.get_classlist()
         data['classlist'] = classlist
         print(data)

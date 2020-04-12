@@ -57,9 +57,16 @@ class IKlassenraum(model.Schema):
                          source=possibleClasslists,
                          required=False)
 
-    chatroom = schema.Bool(title="Chatroom aktivieren",
-                           description="Die Aktivierung des Chatrooms setzt die Auswahl einer Klassenliste voraus.",
+    chatroom = schema.Bool(title=u"Chatroom aktivieren",
+                           description=u"Die Aktivierung des Chatrooms setzt die Auswahl einer Klassenliste voraus.",
                            required=False)
+
+    chatpolicy = schema.Text(title=u"Regeln im Chatroom",
+                           description=u"Im Chatroom auf kraeks.de müssen Regeln eingehalten werden. Die hier beschriebenen Regeln werden\
+                                    im Chatroom angezeigt",
+                            default=u"Im Chatroom gehen wir respektvoll, höflich und gern auch hilfsbereit miteinander um. Nicht erlaubt sind\
+                                    Beschimpfungen oder Beleidungen aller Art. Außerdem nicht erlaubt sind rassistische oder sexistische\
+                                    Äußerungen.")
 
     @invariant
     def chat_invariant(data):

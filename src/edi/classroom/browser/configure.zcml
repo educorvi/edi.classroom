@@ -11,15 +11,14 @@
       layer="edi.classroom.interfaces.IEdiClassroomLayer"
       />
 
-  <!-- Publish static files -->
-  <!--<plone:static
-      name="edi.classroom"
-      type="plone"
-      directory="static"
-      />-->
-
   <browser:resourceDirectory
       name="edi.classroom"
       directory="static" />
+
+  <browser:page
+      name="classroom-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".settings.EdiClassroomPanelView"
+      permission="cmf.ManagePortal" />
 
 </configure>
